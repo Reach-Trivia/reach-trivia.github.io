@@ -9,15 +9,12 @@ export default function Navbar() {
 
   return (
     <header>
-      <Link to="/" id="logo" className="flex items-center gap-3">
+      <Link to="/" id="logo" className="flex items-center py-0">
         <img
           src={triviaLogo}
           alt="Trivia Club Logo"
-          className="h-10 md:h-12 w-auto object-contain hover:scale-105 transition-transform"
+          className="h-16 md:h-20 w-auto object-contain hover:scale-105 transition-transform"
         />
-        <span className="hidden sm:inline-block font-black text-xl tracking-tight text-[#111111]">
-          Trivia Club
-        </span>
       </Link>
 
       <button
