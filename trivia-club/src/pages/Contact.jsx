@@ -91,7 +91,7 @@ export default function Contact() {
       {/* ── Execs ─────────────────────────────────────────────────── */}
       <section>
         <div className="section-header">
-          <h2 className="section-title">Execs</h2>
+          <h2 className="section-title">Executive Team</h2>
           <p className="section-subtitle">Meet the club leadership team</p>
         </div>
         <div className="execs-grid">
