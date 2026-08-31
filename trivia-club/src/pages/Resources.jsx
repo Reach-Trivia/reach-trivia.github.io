@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Flashcard from "../components/Flashcard";
-import { resources, flashcards, externalLinks } from "../data/mockData";
+import { resources, externalLinks } from "../data/resources";
 
 export default function Resources() {
   const [search, setSearch] = useState("");
@@ -16,7 +15,7 @@ export default function Resources() {
 
   return (
     <main className="page-container">
-      {/* ── Study Guides ──────────────────────────────────────────── */}
+      {/* ── Lessons / Study Guides ──────────────────────────────────── */}
       <section>
         <div className="section-header">
           <h2 className="section-title">Lessons</h2>
@@ -36,7 +35,7 @@ export default function Resources() {
           {filtered.length === 0 ? (
             <div className="search-empty-card">
               <p className="search-empty-text">
-                No guides matching "<span className="text-neutral-200">{search}</span>"
+                No lessons matching "<span className="text-neutral-900 font-bold">{search}</span>"
               </p>
               <button
                 onClick={() => setSearch("")}
@@ -49,7 +48,7 @@ export default function Resources() {
             <div className="study-guides-grid">
               {filtered.map((r) => (
                 <div key={r.id} className="resource-card group">
-                  <h3 className="resource-card-title group-hover:text-[#00A63E]">
+                  <h3 className="resource-card-title group-hover:text-[#0074FF]">
                     {r.title}
                   </h3>
                   <p className="resource-card-desc">{r.description}</p>
@@ -61,30 +60,17 @@ export default function Resources() {
                     ))}
                   </div>
                   <a
-                    href={r.pdfUrl}
+                    href={r.slideUrl || r.pdfUrl || "#"}
                     className="resource-download"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ↓ Download PDF
+                    ↗ Open Google Slide
                   </a>
                 </div>
               ))}
             </div>
           )}
-        </div>
-      </section>
-
-      {/* ── Flashcards ────────────────────────────────────────────── */}
-      <section>
-        <div className="section-header">
-          <h2 className="section-title">Flashcards</h2>
-        </div>
-
-        <div className="flashcards-grid">
-          {flashcards.map((card) => (
-            <Flashcard key={card.id} front={card.front} back={card.back} />
-          ))}
         </div>
       </section>
 

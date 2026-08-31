@@ -1,7 +1,6 @@
 import CountdownTimer from "../components/CountdownTimer";
 import TriviaQuestion from "../components/TriviaQuestion";
-import AnnouncementCard from "../components/AnnouncementCard";
-import { triviaQuestions, announcements } from "../data/mockData";
+import { triviaQuestions } from "../data/questions";
 import { getQuestionOfTheDay } from "../utils/getQuestionOfTheDay";
 
 export default function Home() {
@@ -12,8 +11,8 @@ export default function Home() {
       {/* ── Competition Countdown ──────────────────────────────────── */}
       <section>
         <CountdownTimer
-          eventName="Your Name"
-          targetDate="2026-08-20T19:00:00"
+          eventName="Consensus Trivia"
+          targetDate="2027-02-26T15:00:00"
         />
       </section>
 
@@ -24,21 +23,6 @@ export default function Home() {
           options={todayQ.options}
           correctIndex={todayQ.correctIndex}
         />
-      </section>
-
-      {/* ── Announcements Feed ────────────────────────────────────── */}
-      <section>
-        <div className="announcements-feed-header">
-          <h2 className="section-title">Announcements</h2>
-          <span className="announcements-counter">
-            {announcements.length} updates
-          </span>
-        </div>
-        <div className="announcements-scroll-list custom-scrollbar">
-          {announcements.map((post) => (
-            <AnnouncementCard key={post.id} {...post} />
-          ))}
-        </div>
       </section>
     </main>
   );

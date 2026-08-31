@@ -1,27 +1,49 @@
+/* ═══════════════════════════════════════════════════════════════════
+   RETRO-TV POP-ART LIGHT THEME — Global Design Tokens
+   ═══════════════════════════════════════════════════════════════════ */
+
 :root {
-  --text: #a3a3a3;
-  --text-h: #f5f5f5;
-  --bg: #0a0a0a;
-  --bg-card: rgba(23, 23, 23, 0.7);
-  --border: #2e2e2e;
-  --code-bg: #171717;
-  --green: #00A63E;
-  --green-bg: rgba(0, 166, 62, 0.12);
-  --green-border: rgba(0, 166, 62, 0.45);
-  --blue: #007595;
-  --blue-bg: rgba(0, 117, 149, 0.12);
-  --blue-border: rgba(0, 117, 149, 0.45);
+  /* ── Palette ─────────────────────────────────────────────────── */
+  --bg:             #F2F8FA;          /* soft light cyan tint       */
+  --bg-card:        #FFFFFF;          /* clean card white           */
+  --text:           #333333;          /* body text                  */
+  --text-h:         #111111;          /* headings / high-contrast   */
+  --border:         #111111;          /* bold black outlines         */
+  --border-light:   #D4D4D4;         /* subtle dividers             */
+
+  /* Brand accents */
+  --accent:         #8AD3DF;          /* retro cyan — TV frame      */
+  --green:          #1FE23B;          /* vivid lime green            */
+  --yellow:         #FFE600;          /* broadcast yellow            */
+  --blue:           #0074FF;          /* electric blue               */
+
+  /* Derived tints */
+  --accent-bg:      rgba(138, 211, 223, 0.15);
+  --green-bg:       rgba(31, 226, 59, 0.12);
+  --green-border:   rgba(31, 226, 59, 0.50);
+  --blue-bg:        rgba(0, 116, 255, 0.10);
+  --blue-border:    rgba(0, 116, 255, 0.40);
+  --yellow-bg:      rgba(255, 230, 0, 0.15);
+
+  --code-bg:        #E8F4F8;
   --shadow:
-    rgba(0, 0, 0, 0.4) 0 10px 15px -3px,
-    rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    rgba(0, 0, 0, 0.08) 0 4px 12px -2px,
+    rgba(0, 0, 0, 0.04) 0 2px 4px -1px;
+  --shadow-pop:     4px 4px 0 #111111;   /* neo-brutalist offset      */
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* ── Retro structural tokens ─────────────────────────────────── */
+  --border-thick:   3px solid #111111;
+  --radius-crt:     20px;             /* rounded CRT TV corners      */
+  --radius-sm:      12px;
 
-  font: 18px/145% var(--sans);
+  /* ── Typography ──────────────────────────────────────────────── */
+  --sans:    'Segoe UI', system-ui, Roboto, sans-serif;
+  --heading: 'Segoe UI', system-ui, Roboto, sans-serif;
+  --mono:    ui-monospace, Consolas, 'Courier New', monospace;
+
+  font: 18px/150% var(--sans);
   letter-spacing: 0.18px;
-  color-scheme: dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -34,8 +56,13 @@
   }
 }
 
+/* ── Halftone dot background accent ───────────────────────────── */
 body {
   margin: 0;
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle, rgba(138, 211, 223, 0.12) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
 
 #root {
@@ -48,10 +75,11 @@ body {
   box-sizing: border-box;
 }
 
+/* ── Headings ─────────────────────────────────────────────────── */
 h1,
 h2 {
   font-family: var(--heading);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-h);
 }
 

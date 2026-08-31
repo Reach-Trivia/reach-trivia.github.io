@@ -45,7 +45,7 @@ export default function TriviaQuestion({ question, options, correctIndex }) {
         <div className="trivia-feedback">
           <p
             className={`trivia-feedback-text ${
-              selectedIndex === correctIndex ? "text-[#00A63E]" : "text-red-400"
+              selectedIndex === correctIndex ? "text-[#1FE23B]" : "text-red-400"
             }`}
           >
             {selectedIndex === correctIndex
