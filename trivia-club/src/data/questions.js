@@ -1,5 +1,4 @@
 export const triviaQuestions = [
-  // 18 Original Questions
   {
     question: "What country was established by the Sons of Jacob as a theocratic successor state to the US in The Handmaid's Tale?",
     options: ["Panem", "Republic of Gilead", "Oceana", "Gatlin"],
