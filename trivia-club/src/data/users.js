@@ -3,7 +3,7 @@ export const execs = [
   { name: "Alex", role: "Co-President" },
   { name: "Kevin", role: "Co-President" },
   { name: "Daniel", role: "Vice President" },
-  { name: "Toby", role: "Senior Trainer" },
+  { name: "Tobey", role: "Senior Trainer" },
   { name: "Keira", role: "Junior Trainer" },
   { name: "Akshit", role: "Media Master" },
   { name: "Sunwoo", role: "Event Coordinator" },
