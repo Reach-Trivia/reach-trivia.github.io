@@ -50,7 +50,7 @@ export default function Contact() {
             />
             <span className="contact-card-title">Instagram</span>
             <span className="contact-card-value text-[#0074FF] group-hover:underline">
-              @triviaclub
+              @ehss_trivia
             </span>
           </a>
 
@@ -65,12 +65,12 @@ export default function Contact() {
             />
             <span className="contact-card-title">Gmail</span>
             <span className="contact-card-value text-[#111111] group-hover:underline">
-              {socials.email}
+              Email Us
             </span>
           </a>
 
           <a
-            href={socials.discord || "https://discord.gg/triviaclub"}
+            href={socials.discord || "https://discord.gg/dZm2UQjCwk"}
             target="_blank"
             rel="noopener noreferrer"
             className="contact-card no-underline group"
