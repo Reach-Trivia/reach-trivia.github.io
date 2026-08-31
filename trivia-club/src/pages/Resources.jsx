@@ -65,7 +65,7 @@ export default function Resources() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    ↗ Open Google Slide
+                    ↗ Open
                   </a>
                 </div>
               ))}
