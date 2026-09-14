@@ -1,6 +1,6 @@
 export const resources = [
   // All tags ["intro", "arts", "pop culture", "humanities", "contemporary world", "sports", "science"]
-  { id: 1, title: "Question Sets/Etiquette/Strategy", 
+{ id: 1, title: "Question Sets/Etiquette/Strategy", 
     description: "Covers the basics of trivia, including how to play, how to strategize, and how to be a good teammate.", 
     tags: ["intro"], 
     slideUrl: "https://docs.google.com/presentation/d/1tm_zDYqn7EJsLFdveNrpjpw7mirdqWeg8pTa_t1mvGs/edit?usp=drive_link" 
@@ -59,6 +59,43 @@ export const resources = [
     tags: ["humanities"], 
     slideUrl: "https://docs.google.com/presentation/d/14emHgV4AWSrvioYoBjB-mpd_AbIjYO29rCaRImJdrJ0/edit?usp=drive_link" 
   },
+
+  { id: 11, title: "Video Games", 
+    description: "Covers the basics of video game trivia, including famous franchises, characters, developers, and consoles.", 
+    tags: ["arts", "pop culture"], 
+    slideUrl: "https://docs.google.com/presentation/d/18WK6cf7I4ppMfde3nNQg-RnwOS-UEp41Ts5opcUNyzM/edit?usp=drive_link" 
+  },
+
+  { id: 12, title: "Sports Lesson", 
+    description: "Covers essential sports trivia topics, including major leagues, athletes, championships, and rules.", 
+    tags: ["sports"], 
+    slideUrl: "https://docs.google.com/presentation/d/1Ai2M1ipU5gA0wotSySXNetGtQUe8WB_6VL1q36XEMQU/edit?usp=drive_link" 
+  },
+
+  { id: 13, title: "History Foundations I", 
+    description: "Covers foundational world history trivia spanning from pre-500 up to the year 1499.", 
+    tags: ["history", "humanities"], 
+    slideUrl: "https://docs.google.com/presentation/d/1P09Q7mYoFdneFd1aEcAE_4wupchcnunX6quB4BEjDok/edit?usp=drive_link" 
+  },
+
+  { id: 14, title: "History Foundations II", 
+    description: "Covers modern world history trivia spanning from 1500 to the 21st century.", 
+    tags: ["history", "humanities"], 
+    slideUrl: "https://docs.google.com/presentation/d/1ViyM4JDOSfh6OIxjBbZGg3VUwcUoeds1x52IEwtDc1s/edit?usp=drive_link" 
+  },
+
+  { id: 15, title: "Governments & Institutions", 
+    description: "Covers civics, political systems, government structures, and international institutions.", 
+    tags: ["contemporary world", "humanities"], 
+    slideUrl: "https://docs.google.com/presentation/d/1gGqqaXOHTxjbZwYDlKz3LgUnDCxCodAWB7gIX4d2pJ0/edit?usp=drive_link" 
+  },
+
+  { id: 16, title: "Business Trivia", 
+    description: "Covers essential business trivia topics, including economics, finance, accounting, and industry trends.", 
+    tags: ["contemporary world"], 
+    slideUrl: "https://docs.google.com/presentation/d/1Y7NseK46NRU9JhZ1RebSvLQ1eoMKnwJ-da6JyU7LZx4/edit?usp=drive_link" 
+  }
+
 ];
 
 export const externalLinks = [
