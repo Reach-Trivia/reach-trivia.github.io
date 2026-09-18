@@ -464,8 +464,18 @@ section {
 /* ─── Execs ──────────────────────────────────────────────────────── */
 
 .execs-grid {
-  @apply grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2;
+  @apply grid grid-cols-2 gap-3 mt-2;
+  @apply sm:flex sm:flex-wrap sm:justify-center;
 }
+
+.execs-grid > :nth-child(-n+4) {
+  @apply sm:w-[calc(25%-0.6rem)];
+}
+
+.execs-grid > :nth-child(n+5) {
+  @apply sm:w-[calc(20%-0.65rem)];
+}
+
 
 .exec-card {
   @apply p-3.5 flex flex-col items-center gap-2 transition-all duration-200;

@@ -12,7 +12,7 @@ export default function Home() {
       <section>
         <CountdownTimer
           eventName="Consensus Trivia"
-          targetDate="2027-02-26T15:00:00"
+          targetDate="2026-12-05T07:00:00"
         />
       </section>
 
