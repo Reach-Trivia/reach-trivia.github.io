@@ -741,6 +741,10 @@ footer {
   @apply grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 w-full items-start justify-center;
 }
 
+.scores-stacked-layout {
+  @apply flex flex-col gap-8 w-full max-w-4xl mx-auto items-center;
+}
+
 .scores-panel {
   @apply w-full;
 }

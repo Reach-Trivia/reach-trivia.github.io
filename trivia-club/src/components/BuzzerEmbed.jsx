@@ -2,9 +2,18 @@ import { useState } from "react";
 
 /**
  * BuzzerEmbed — MultiBuzz live buzzer framed in a retro Windows-style window.
- * Features title bar with symbol controls for reload (↻) and open in new tab (↗).
+ * Features title bar with controls for:
+ * - Switch layout (⬍ Move under / ⬌ Side-by-side)
+ * - Minimize/expand window (− / □)
+ * - Reload buzzer (↻)
+ * - Open in new tab (↗)
  */
-export default function BuzzerEmbed() {
+export default function BuzzerEmbed({
+  layout = "side",
+  onToggleLayout,
+  isMinimized = false,
+  onToggleMinimize,
+}) {
   const [iframeKey, setIframeKey] = useState(0);
   const iframeUrl = "https://multibuzz.app";
 
@@ -29,6 +38,37 @@ export default function BuzzerEmbed() {
           </span>
 
           <div className="retro-window-controls">
+            {/* Layout Toggle Button */}
+            {onToggleLayout && (
+              <button
+                type="button"
+                onClick={onToggleLayout}
+                className="retro-window-btn"
+                title={
+                  layout === "side"
+                    ? "Move Buzzer under score ticker"
+                    : "Move Buzzer side-by-side with score ticker"
+                }
+                aria-label="Toggle Layout"
+              >
+                {layout === "side" ? "⬍" : "⬌"}
+              </button>
+            )}
+
+            {/* Minimize / Expand Toggle Button */}
+            {onToggleMinimize && (
+              <button
+                type="button"
+                onClick={onToggleMinimize}
+                className="retro-window-btn font-mono"
+                title={isMinimized ? "Restore / Expand window" : "Minimize / Collapse window"}
+                aria-label={isMinimized ? "Expand window" : "Minimize window"}
+              >
+                {isMinimized ? "□" : "−"}
+              </button>
+            )}
+
+            {/* Reload Button */}
             <button
               type="button"
               onClick={handleReload}
@@ -38,6 +78,8 @@ export default function BuzzerEmbed() {
             >
               ↻
             </button>
+
+            {/* Open in New Tab Button */}
             <a
               href={iframeUrl}
               target="_blank"
@@ -51,8 +93,8 @@ export default function BuzzerEmbed() {
           </div>
         </div>
 
-        {/* Window Body with Iframe */}
-        <div className="retro-window-body">
+        {/* Window Body with Iframe (kept in DOM for seamless state) */}
+        <div className={isMinimized ? "hidden" : "retro-window-body"}>
           <iframe
             key={iframeKey}
             src={iframeUrl}
