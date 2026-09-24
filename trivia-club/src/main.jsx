@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import Resources from "./pages/Resources.jsx";
 import Contact from "./pages/Contact.jsx";
 import Timer from "./components/Timer.jsx";
+import Scores from "./pages/Scores.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/resources" element={<Resources />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/timer" element={<Timer />} />
+          <Route path="/scores" element={<Scores />} />
         </Route>
       </Routes>
     </BrowserRouter>

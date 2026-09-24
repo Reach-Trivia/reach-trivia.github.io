@@ -598,3 +598,135 @@ footer {
       rgba(138, 211, 223, 0.06) 4px
     );
 }
+
+/* ─── Score Ticker ───────────────────────────────────────────────── */
+
+.score-counter-container {
+  @apply w-full max-w-3xl mx-auto flex flex-col items-center gap-6 py-2;
+}
+
+.score-tickers-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 w-full;
+}
+
+.score-ticker-wrapper {
+  @apply relative w-full;
+}
+
+.score-ticker-backing {
+  @apply absolute inset-0 rounded-none transition-all duration-200;
+  border: 3px solid #111111;
+  transform: translate(10px, 10px);
+}
+
+.score-ticker-backing-blue {
+  background: var(--blue);
+}
+
+.score-ticker-backing-yellow {
+  background: var(--yellow);
+}
+
+.score-ticker-backing-green {
+  background: var(--green);
+}
+
+.score-ticker-card {
+  @apply relative bg-white rounded-none p-5 md:p-6 flex flex-col items-center transition-all duration-200;
+  border: 3px solid #111111;
+}
+
+.score-team-input {
+  @apply w-full font-black text-center uppercase tracking-wider text-xl md:text-2xl pb-1 mb-4 bg-transparent outline-none transition-colors;
+  color: var(--text-h);
+  border-bottom: 2px dashed #111111;
+}
+
+.score-team-input:focus {
+  border-bottom: 2px solid var(--blue);
+}
+
+.score-btn-group {
+  @apply grid grid-cols-2 gap-3 w-full max-w-[240px];
+}
+
+.score-btn {
+  @apply font-black text-base md:text-lg py-2.5 px-3 rounded-none cursor-pointer transition-all duration-150 select-none text-center;
+  background: #FFFFFF;
+  border: 2.5px solid #111111;
+  color: #111111;
+  box-shadow: 2.5px 2.5px 0 #111111;
+}
+
+.score-btn:hover {
+  transform: translate(-1.5px, -1.5px);
+  box-shadow: 4px 4px 0 #111111;
+}
+
+.score-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #111111;
+}
+
+.score-btn-plus:hover {
+  background: var(--green);
+}
+
+.score-btn-minus:hover {
+  background: var(--yellow);
+}
+
+.score-display-box {
+  @apply w-full max-w-[240px] my-3.5 flex items-center justify-center rounded-none relative;
+  background: var(--bg);
+  border: 3px solid #111111;
+  box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.08);
+}
+
+.score-number-input {
+  @apply w-full py-4 text-5xl md:text-6xl font-black font-mono text-center bg-transparent outline-none;
+  color: #111111;
+}
+
+.score-number-input::-webkit-outer-spin-button,
+.score-number-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.score-number-input {
+  -moz-appearance: textfield;
+}
+
+.score-reset-btn {
+  @apply mt-3 text-xs font-bold uppercase tracking-wider px-3 py-1 bg-transparent cursor-pointer transition-colors border-0;
+  color: #888888;
+}
+
+.score-reset-btn:hover {
+  color: #111111;
+  text-decoration: underline;
+}
+
+.score-global-controls {
+  @apply flex flex-wrap items-center justify-center gap-4 mt-2 pt-2;
+}
+
+.score-control-btn {
+  @apply font-bold text-xs md:text-sm py-2 px-4 rounded-none cursor-pointer transition-all uppercase tracking-wider;
+  background: #FFFFFF;
+  border: 2px solid #111111;
+  color: #111111;
+  box-shadow: 2px 2px 0 #111111;
+}
+
+.score-control-btn:hover {
+  background: var(--accent);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #111111;
+}
+
+.score-control-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #111111;
+}

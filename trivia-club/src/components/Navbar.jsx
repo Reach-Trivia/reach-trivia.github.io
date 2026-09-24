@@ -28,6 +28,7 @@ export default function Navbar() {
       {/* Desktop nav */}
       <nav>
         <NavLink to="/" end>Home</NavLink>
+        <NavLink to="/scores">Scores</NavLink>
         <NavLink to="/resources">Resources</NavLink>
         <NavLink to="/contact">Contact</NavLink>
       </nav>
@@ -35,6 +36,7 @@ export default function Navbar() {
       {/* Mobile nav */}
       <div className={`mobile-nav ${isOpen ? "nav-open" : "nav-closed"}`}>
         <NavLink to="/" end onClick={close}>Home</NavLink>
+        <NavLink to="/scores" onClick={close}>Scores</NavLink>
         <NavLink to="/resources" onClick={close}>Resources</NavLink>
         <NavLink to="/contact" onClick={close}>Contact</NavLink>
       </div>
