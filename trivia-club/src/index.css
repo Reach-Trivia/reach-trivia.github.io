@@ -37,8 +37,8 @@
   --radius-sm:      12px;
 
   /* ── Typography ──────────────────────────────────────────────── */
-  --sans:    'Segoe UI', system-ui, Roboto, sans-serif;
-  --heading: 'Segoe UI', system-ui, Roboto, sans-serif;
+  --sans:    'Nunito Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --heading: 'Space Grotesk', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --mono:    ui-monospace, Consolas, 'Courier New', monospace;
 
   font: 18px/150% var(--sans);
