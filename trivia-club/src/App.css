@@ -144,6 +144,149 @@ section {
   color: #666666;
 }
 
+/* ─── Home Score History Graph ───────────────────────────────────── */
+
+.score-history-section {
+  @apply p-0;
+}
+
+.score-history-card {
+  @apply p-4 md:p-5;
+  background: var(--bg-card);
+  border: 3px solid #111111;
+  border-radius: var(--radius-crt);
+  box-shadow: var(--shadow-pop);
+}
+
+.score-chart {
+  @apply w-full mt-2;
+}
+
+.score-chart-legend {
+  @apply flex flex-wrap justify-center gap-x-5 gap-y-2 mb-1;
+}
+
+.score-chart-legend-item {
+  @apply inline-flex items-center gap-2 text-xs font-bold;
+  color: var(--text-h);
+}
+
+.score-chart-legend-swatch {
+  @apply inline-block w-5 h-1 rounded-full;
+}
+
+.score-chart-svg {
+  @apply block w-full h-auto overflow-visible;
+}
+
+.score-chart-gridline {
+  stroke: #D4D4D4;
+  stroke-dasharray: 4 5;
+  stroke-width: 1.5;
+}
+
+.score-chart-axis {
+  stroke: #111111;
+  stroke-width: 2;
+}
+
+.score-chart-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 4;
+}
+
+.score-chart-line-blue {
+  stroke: var(--blue);
+}
+
+.score-chart-line-green {
+  stroke: #16A34A;
+}
+
+.score-chart-point {
+  stroke: #111111;
+  stroke-width: 2.5;
+}
+
+.score-chart-point-blue {
+  fill: var(--blue);
+}
+
+.score-chart-point-green {
+  fill: #16A34A;
+}
+
+.score-chart-hover-target {
+  fill: transparent;
+  cursor: crosshair;
+}
+
+.score-chart-crosshair {
+  stroke: #111111;
+  stroke-dasharray: 5 4;
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+
+.score-chart-tooltip {
+  opacity: 0;
+  pointer-events: none;
+  transition-property: opacity;
+  transition-duration: 20ms;
+  transition-timing-function: ease;
+}
+
+.score-chart-tooltip-visible {
+  opacity: 1;
+}
+
+.score-chart-tooltip-box {
+  fill: #FFFFFF;
+  stroke: #111111;
+  stroke-width: 2;
+  filter: drop-shadow(2px 2px 0 #111111);
+  transition-property: opacity;
+  transition-duration: 20ms;
+}
+
+.score-chart-tooltip-date,
+.score-chart-tooltip-blue,
+.score-chart-tooltip-green {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 800;
+  transition-property: opacity;
+  transition-duration: 20ms;
+}
+
+.score-chart-tooltip-date {
+  fill: #111111;
+}
+
+.score-chart-tooltip-blue {
+  fill: var(--blue);
+}
+
+.score-chart-tooltip-green {
+  fill: #15803D;
+}
+
+.score-chart-tick {
+  fill: #666666;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.score-chart-axis-label {
+  fill: #111111;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 800;
+}
+
 /* ─── Countdown Timer ────────────────────────────────────────────── */
 
 .countdown-wrapper {

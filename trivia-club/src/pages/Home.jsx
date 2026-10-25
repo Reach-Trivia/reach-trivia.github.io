@@ -1,4 +1,5 @@
 import CountdownTimer from "../components/CountdownTimer";
+import ScoreHistoryGraph from "../components/ScoreHistoryGraph";
 import TriviaQuestion from "../components/TriviaQuestion";
 import { triviaQuestions } from "../data/questions";
 import { getQuestionOfTheDay } from "../utils/getQuestionOfTheDay";
@@ -24,6 +25,8 @@ export default function Home() {
           correctIndex={todayQ.correctIndex}
         />
       </section>
+
+      <ScoreHistoryGraph />
     </main>
   );
 }
