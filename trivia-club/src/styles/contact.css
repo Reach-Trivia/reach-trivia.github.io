@@ -1,0 +1,120 @@
+.meetings-card {
+  display: grid;
+  gap: 1rem;
+  max-width: 28rem;
+  margin-inline: auto;
+  text-align: left;
+}
+.meetings-card:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--border);
+}
+.meeting-row {
+  display: flex;
+  align-items: start;
+  gap: 0.75rem;
+}
+.meeting-row + .meeting-row {
+  padding-top: 1rem;
+  border-top: 2px dashed var(--divider);
+}
+.meeting-row .eyebrow {
+  margin-bottom: 0.25rem;
+}
+.socials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.contact-card,
+.exec-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+.contact-card {
+  color: inherit;
+  text-decoration: none;
+}
+.contact-card:hover {
+  border-color: var(--cyan);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--cyan);
+}
+.contact-card:hover .contact-icon {
+  transform: scale(1.25);
+}
+.contact-card:hover .contact-value {
+  text-decoration: underline;
+}
+.contact-icon {
+  object-fit: contain;
+  transition: transform 200ms;
+}
+.contact-value {
+  color: var(--blue);
+  font-size: 0.875rem;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+.execs-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+.exec-card {
+  flex: 0 1 calc(25% - 0.75rem);
+  padding: 1rem 0.5rem;
+  min-width: 0;
+  box-shadow: 3px 3px 0 var(--border);
+}
+.exec-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0 var(--green);
+  border-color: var(--green);
+}
+.exec-card:hover .exec-avatar {
+  background: var(--green);
+}
+.exec-card:nth-child(n + 5) {
+  flex-basis: calc(20% - 0.75rem);
+}
+.exec-avatar {
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background: var(--yellow);
+  font-size: 1.25rem;
+  font-weight: 900;
+  transition: background-color 200ms;
+}
+.exec-name {
+  font-size: 0.875rem;
+}
+.badge {
+  max-width: 100%;
+  padding: 0.25rem 0.5rem;
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--cyan);
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 39.99rem) {
+  .socials-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .exec-card,
+  .exec-card:nth-child(n + 5) {
+    flex-basis: calc(50% - 0.75rem);
+  }
+}

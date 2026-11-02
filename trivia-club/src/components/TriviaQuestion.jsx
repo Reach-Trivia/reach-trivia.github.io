@@ -1,59 +1,47 @@
 import { useState } from "react";
 
-/**
- * TriviaQuestion — interactive multiple-choice quiz component.
- *
- * Props:
- *   question  — the question text
- *   options   — string array of 4 answer choices
- *   correctIndex — index (0-based) of the correct option
- */
 export default function TriviaQuestion({ question, options, correctIndex }) {
   const [selectedIndex, setSelectedIndex] = useState(null);
   const answered = selectedIndex !== null;
-
-  const handleClick = (idx) => {
-    if (answered) return; // lock after first answer
-    setSelectedIndex(idx);
-  };
-
-  const buttonClass = (idx) => {
-    if (!answered) return "button";
-    if (idx === correctIndex) return "button correct";
-    if (idx === selectedIndex) return "button answer";
-    return "button answer";
-  };
+  const correct = selectedIndex === correctIndex;
 
   return (
-    <section className="trivia-section">
-      <div className="trivia-header">
-        <h2 className="trivia-title">Daily Trivia!</h2>
-        <p className="trivia-question-text">{question}</p>
+    <section className="card trivia-section" aria-labelledby="trivia-title">
+      <h2 id="trivia-title" className="section-title">
+        Daily Trivia!
+      </h2>
+      <p>{question}</p>
+      <div className="trivia-options">
+        {options.map((option, index) => {
+          const result = !answered
+            ? ""
+            : index === correctIndex
+              ? " is-correct"
+              : index === selectedIndex
+                ? " is-incorrect"
+                : "";
+          return (
+            <button
+              key={option}
+              type="button"
+              className={`button${result}`}
+              disabled={answered}
+              onClick={() => setSelectedIndex(index)}
+            >
+              {option}
+            </button>
+          );
+        })}
       </div>
-      <div className="buttons">
-        {options.map((option, idx) => (
-          <button
-            key={idx}
-            className={buttonClass(idx)}
-            onClick={() => handleClick(idx)}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-      {answered && (
-        <div className="trivia-feedback">
-          <p
-            className={`trivia-feedback-text ${
-              selectedIndex === correctIndex ? "text-[#1FE23B]" : "text-red-400"
-            }`}
-          >
-            {selectedIndex === correctIndex
-              ? "✓ Correct answer! Well done."
-              : `✗ Incorrect. The correct answer was: ${options[correctIndex]}`}
-          </p>
-        </div>
-      )}
+      <p
+        role="status"
+        className={`trivia-feedback${answered ? (correct ? " is-correct" : " is-incorrect") : ""}`}
+      >
+        {answered &&
+          (correct
+            ? "✓ Correct answer! Well done."
+            : `✗ Incorrect. The correct answer was: ${options[correctIndex]}`)}
+      </p>
     </section>
   );
 }

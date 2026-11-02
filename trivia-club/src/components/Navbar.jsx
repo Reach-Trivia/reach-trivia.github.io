@@ -1,45 +1,68 @@
-import { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import triviaLogo from "../assets/trivia_logo.png";
+import { useRef, useState } from "react";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import triviaLogo from "../assets/trivia-logo.webp";
 
-export default function Navbar() {
+const links = [
+  { to: "/", label: "Home" },
+  { to: "/scores", label: "Scores" },
+  { to: "/resources", label: "Resources" },
+  { to: "/contact", label: "Contact" },
+];
+
+function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const close = () => setIsOpen(false);
+  const menuButton = useRef(null);
 
   return (
-    <header>
-      <Link to="/" id="logo" className="flex items-center py-0">
-        <img
-          src={triviaLogo}
-          alt="Trivia Club Logo"
-          className="h-16 md:h-20 w-auto object-contain hover:scale-105 transition-transform"
-        />
+    <header
+      className="site-header"
+      onKeyDown={(event) => {
+        if (event.key === "Escape" && isOpen) {
+          setIsOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
+    >
+      <Link
+        to="/"
+        className="site-logo"
+        aria-label="Reach Trivia home"
+        onClick={() => setIsOpen(false)}
+      >
+        <img src={triviaLogo} alt="Reach Trivia" width="80" height="80" />
       </Link>
-
       <button
+        ref={menuButton}
+        type="button"
         className="menu-button"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-label="Toggle Menu"
+        onClick={() => setIsOpen((open) => !open)}
+        aria-label="Toggle menu"
+        aria-expanded={isOpen}
+        aria-controls="main-navigation"
       >
         ☰
       </button>
-
-      {/* Desktop nav */}
-      <nav>
-        <NavLink to="/" end>Home</NavLink>
-        <NavLink to="/scores">Scores</NavLink>
-        <NavLink to="/resources">Resources</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
+      <nav
+        id="main-navigation"
+        className={`site-nav${isOpen ? " is-open" : ""}`}
+        aria-label="Main navigation"
+      >
+        {links.map(({ to, label }) => (
+          <NavLink
+            key={to}
+            to={to}
+            end={to === "/"}
+            onClick={() => setIsOpen(false)}
+          >
+            {label}
+          </NavLink>
+        ))}
       </nav>
-
-      {/* Mobile nav */}
-      <div className={`mobile-nav ${isOpen ? "nav-open" : "nav-closed"}`}>
-        <NavLink to="/" end onClick={close}>Home</NavLink>
-        <NavLink to="/scores" onClick={close}>Scores</NavLink>
-        <NavLink to="/resources" onClick={close}>Resources</NavLink>
-        <NavLink to="/contact" onClick={close}>Contact</NavLink>
-      </div>
     </header>
   );
+}
+
+export default function Navbar() {
+  const { pathname } = useLocation();
+  return <Navigation key={pathname} />;
 }

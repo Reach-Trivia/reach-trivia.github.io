@@ -1,134 +1,122 @@
-/* ═══════════════════════════════════════════════════════════════════
-   RETRO-TV POP-ART LIGHT THEME — Global Design Tokens
-   ═══════════════════════════════════════════════════════════════════ */
-
 :root {
-  /* ── Palette ─────────────────────────────────────────────────── */
-  --bg:             #F2F8FA;          /* soft light cyan tint       */
-  --bg-card:        #FFFFFF;          /* clean card white           */
-  --text:           #333333;          /* body text                  */
-  --text-h:         #111111;          /* headings / high-contrast   */
-  --border:         #111111;          /* bold black outlines         */
-  --border-light:   #D4D4D4;         /* subtle dividers             */
-
-  /* Brand accents */
-  --accent:         #8AD3DF;          /* retro cyan — TV frame      */
-  --green:          #1FE23B;          /* vivid lime green            */
-  --yellow:         #FFE600;          /* broadcast yellow            */
-  --blue:           #0074FF;          /* electric blue               */
-
-  /* Derived tints */
-  --accent-bg:      rgba(138, 211, 223, 0.15);
-  --green-bg:       rgba(31, 226, 59, 0.12);
-  --green-border:   rgba(31, 226, 59, 0.50);
-  --blue-bg:        rgba(0, 116, 255, 0.10);
-  --blue-border:    rgba(0, 116, 255, 0.40);
-  --yellow-bg:      rgba(255, 230, 0, 0.15);
-
-  --code-bg:        #E8F4F8;
-  --shadow:
-    rgba(0, 0, 0, 0.08) 0 4px 12px -2px,
-    rgba(0, 0, 0, 0.04) 0 2px 4px -1px;
-  --shadow-pop:     4px 4px 0 #111111;   /* neo-brutalist offset      */
-
-  /* ── Retro structural tokens ─────────────────────────────────── */
-  --border-thick:   3px solid #111111;
-  --radius-crt:     20px;             /* rounded CRT TV corners      */
-  --radius-sm:      12px;
-
-  /* ── Typography ──────────────────────────────────────────────── */
-  --sans:    'Segoe UI', system-ui, Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --heading: 'Segoe UI', system-ui, Roboto, 'Helvetica Neue', Arial, sans-serif;
-  --mono:    ui-monospace, Consolas, 'Courier New', monospace;
-
-  font: 18px/150% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light;
+  --bg: #f2f8fa;
+  --surface: #fff;
+  --text: #333;
+  --heading: #111;
+  --muted: #626262;
+  --border: #111;
+  --divider: #d4d4d4;
+  --cyan: #8ad3df;
+  --cyan-tint: #eaf7fa;
+  --green: #1fe23b;
+  --green-dark: #14752a;
+  --green-tint: #e6fbea;
+  --yellow: #ffe600;
+  --blue: #0074ff;
+  --red: #b91c1c;
+  --red-tint: #fee2e2;
+  --radius: 20px;
+  --radius-small: 12px;
+  --outline: 3px solid var(--border);
+  --shadow: 4px 4px 0 var(--border);
+  --mono: ui-monospace, Consolas, "Courier New", monospace;
+  font:
+    18px/1.5 "Segoe UI",
+    system-ui,
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   color: var(--text);
+  letter-spacing: 0.18px;
   background: var(--bg);
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-/* ── Halftone dot background accent ───────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  background-color: var(--bg);
-  background-image:
-    radial-gradient(circle, rgba(138, 211, 223, 0.12) 1px, transparent 1px);
+  min-width: 280px;
+  background-image: radial-gradient(circle, #8ad3df1f 1px, transparent 1px);
   background-size: 18px 18px;
 }
 
 #root {
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
   min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+  text-align: center;
 }
 
-/* ── Headings ─────────────────────────────────────────────────── */
 h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 700;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-
+h2,
+h3,
 p {
   margin: 0;
 }
-
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+h1,
+h2,
+h3 {
+  color: var(--heading);
+  line-height: 1.2;
+}
+button,
+input {
+  font: inherit;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: default;
+}
+a {
+  color: var(--blue);
+}
+img {
+  max-width: 100%;
+}
+[hidden] {
+  display: none !important;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
 }
 
-.content-wrapper {
-  width: 100%;
-  max-width: 1900px;
-  margin: 0 auto;
-  padding: 0 40px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+button,
+a,
+input {
+  transition:
+    background-color 150ms,
+    color 150ms,
+    border-color 150ms,
+    box-shadow 150ms,
+    transform 150ms;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    font-size: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
 }

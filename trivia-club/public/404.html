@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reach Trivia</title>
+    <script>
+      // GitHub Pages has no rewrite rules. Restore this route before React mounts.
+      const route = location.pathname + location.search + location.hash;
+      location.replace("/?__route=" + encodeURIComponent(route));
+    </script>
+  </head>
+  <body>
+    <p>Opening Reach Trivia… <a href="/">Return to Home</a></p>
+  </body>
+</html>

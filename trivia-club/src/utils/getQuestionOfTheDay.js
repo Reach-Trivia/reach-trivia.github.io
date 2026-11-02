@@ -1,9 +1,10 @@
-/**
- * Returns a deterministic question based on today's date.
- * The same question is shown all day; it rotates at midnight local time.
- */
-export function getQuestionOfTheDay(questions) {
-  const today = new Date();
-  const daysSinceEpoch = Math.floor(today.getTime() / 86_400_000);
-  return questions[daysSinceEpoch % questions.length];
+/** Select one question per local calendar day, including daylight-saving days. */
+export function getQuestionOfTheDay(questions, today = new Date()) {
+  if (!questions.length) return undefined;
+  const day =
+    Date.UTC(today.getFullYear(), today.getMonth(), today.getDate()) /
+    86_400_000;
+  const index =
+    ((day % questions.length) + questions.length) % questions.length;
+  return questions[index];
 }

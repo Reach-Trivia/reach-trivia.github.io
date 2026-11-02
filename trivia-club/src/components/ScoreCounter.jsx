@@ -1,145 +1,63 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { parseScore } from "../utils/scores.js";
 
-/**
- * SingleScoreTicker — represents one team's neo-brutalist score ticker card.
- * Features:
- * - White rectangle with 3px border and NO rounding
- * - Offset colored rectangle behind it (blue or yellow/green)
- * - Large editable team name at the top
- * - Two top buttons for +10 and +5
- * - Large editable number box in the middle
- * - Two bottom buttons for -10 and -5
- */
-function SingleScoreTicker({
-  defaultName = "Team 1",
-  backingClass = "score-ticker-backing-blue",
-  onScoreChange,
-}) {
-  const [teamName, setTeamName] = useState(defaultName);
-  const [score, setScore] = useState(0);
-  const [inputValue, setInputValue] = useState("0");
-  const [isFocused, setIsFocused] = useState(false);
+const initialTeams = [
+  { name: "Team 1", score: "0", color: "blue" },
+  { name: "Team 2", score: "0", color: "green" },
+];
 
-  // Keep input in sync when score changes from buttons
-  useEffect(() => {
-    if (!isFocused) {
-      setInputValue(String(score));
-    }
-  }, [score, isFocused]);
+function ScoreTicker({ team, index, onChange }) {
+  const changeScore = (delta) =>
+    onChange({ score: String(parseScore(team.score) + delta) });
 
-  const handleScoreDelta = (delta) => {
-    setScore((prev) => {
-      const next = prev + delta;
-      setInputValue(String(next));
-      if (onScoreChange) onScoreChange(next);
-      return next;
-    });
-  };
-
-  const handleInputChange = (e) => {
-    const val = e.target.value;
-    setInputValue(val);
-    const parsed = parseInt(val, 10);
-    if (!isNaN(parsed)) {
-      setScore(parsed);
-      if (onScoreChange) onScoreChange(parsed);
-    }
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-    const parsed = parseInt(inputValue, 10);
-    const finalScore = isNaN(parsed) ? 0 : parsed;
-    setScore(finalScore);
-    setInputValue(String(finalScore));
-    if (onScoreChange) onScoreChange(finalScore);
-  };
-
-  const handleReset = () => {
-    setScore(0);
-    setInputValue("0");
-    if (onScoreChange) onScoreChange(0);
-  };
+  const scoreButtons = (deltas) => (
+    <div className="score-btn-group">
+      {deltas.map((delta) => (
+        <button
+          key={delta}
+          type="button"
+          className="score-btn"
+          onClick={() => changeScore(delta)}
+          aria-label={`${delta > 0 ? "Add" : "Subtract"} ${Math.abs(delta)} points ${delta > 0 ? "to" : "from"} ${team.name}`}
+        >
+          {delta > 0 ? "+" : "−"}
+          {Math.abs(delta)}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
-    <div className="score-ticker-wrapper">
-      {/* Offset colored rectangle behind (no rounding, 3px black border) */}
-      <div
-        className={`score-ticker-backing ${backingClass}`}
-        aria-hidden="true"
-      />
-
-      {/* Foreground white rectangle (no rounding, 3px black border) */}
+    <div className={`offset-panel score-ticker-${team.color}`}>
       <div className="score-ticker-card">
-        {/* Editable Team Name on Top */}
         <input
           type="text"
-          value={teamName}
-          onChange={(e) => setTeamName(e.target.value)}
-          aria-label="Team Name"
+          value={team.name}
+          onChange={(event) => onChange({ name: event.target.value })}
+          aria-label={`Team ${index + 1} name`}
           className="score-team-input"
-          placeholder="ENTER TEAM NAME"
+          placeholder="Enter team name"
         />
-
-        {/* Top Buttons: +10 and +5 */}
-        <div className="score-btn-group">
-          <button
-            type="button"
-            className="score-btn score-btn-plus"
-            onClick={() => handleScoreDelta(10)}
-            title="Add 10 points"
-          >
-            +10
-          </button>
-          <button
-            type="button"
-            className="score-btn score-btn-plus"
-            onClick={() => handleScoreDelta(5)}
-            title="Add 5 points"
-          >
-            +5
-          </button>
-        </div>
-
-        {/* Middle Area: Big Editable Score Display */}
+        {scoreButtons([10, 5])}
         <div className="score-display-box">
           <input
             type="text"
             inputMode="numeric"
-            value={inputValue}
-            onFocus={() => setIsFocused(true)}
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            aria-label={`${teamName} Score`}
+            value={team.score}
+            onChange={(event) => {
+              if (/^-?\d*$/.test(event.target.value))
+                onChange({ score: event.target.value });
+            }}
+            onBlur={() => onChange({ score: String(parseScore(team.score)) })}
+            aria-label={`${team.name || `Team ${index + 1}`} score`}
             className="score-number-input"
           />
         </div>
-
-        {/* Bottom Buttons: -10 and -5 */}
-        <div className="score-btn-group">
-          <button
-            type="button"
-            className="score-btn score-btn-minus"
-            onClick={() => handleScoreDelta(-10)}
-            title="Subtract 10 points"
-          >
-            -10
-          </button>
-          <button
-            type="button"
-            className="score-btn score-btn-minus"
-            onClick={() => handleScoreDelta(-5)}
-            title="Subtract 5 points"
-          >
-            -5
-          </button>
-        </div>
-
-        {/* Ticker Reset */}
+        {scoreButtons([-10, -5])}
         <button
           type="button"
-          onClick={handleReset}
-          className="score-reset-btn"
+          onClick={() => onChange({ score: "0" })}
+          className="text-button"
         >
           Reset Team Score
         </button>
@@ -149,40 +67,37 @@ function SingleScoreTicker({
 }
 
 export default function ScoreCounter() {
-  const [matchKey, setMatchKey] = useState(0);
+  const [teams, setTeams] = useState(initialTeams);
 
-  const resetAll = () => {
-    setMatchKey((k) => k + 1);
-  };
+  function updateTeam(index, changes) {
+    setTeams((current) =>
+      current.map((team, i) => (i === index ? { ...team, ...changes } : team)),
+    );
+  }
 
   return (
-    <div className="score-counter-container">
-      {/* Two Tickers Side-by-Side */}
-      <div className="score-tickers-grid" key={matchKey}>
-        {/* Ticker 1: Electric Blue backing */}
-        <SingleScoreTicker
-          defaultName="Team 1"
-          backingClass="score-ticker-backing-blue"
-        />
-
-        {/* Ticker 2: Lime Green backing */}
-        <SingleScoreTicker
-          defaultName="Team 2"
-          backingClass="score-ticker-backing-green"
-        />
+    <div className="score-counter">
+      <div className="score-tickers-grid">
+        {teams.map((team, index) => (
+          <ScoreTicker
+            key={team.color}
+            team={team}
+            index={index}
+            onChange={(changes) => updateTeam(index, changes)}
+          />
+        ))}
       </div>
-
-      {/* Global Controls */}
-      <div className="score-global-controls">
-        <button
-          type="button"
-          onClick={resetAll}
-          className="score-control-btn"
-          title="Reset both teams to 0"
-        >
-          ↺ Reset Match
-        </button>
-      </div>
+      <button
+        type="button"
+        className="button"
+        onClick={() =>
+          setTeams((current) =>
+            current.map((team) => ({ ...team, score: "0" })),
+          )
+        }
+      >
+        ↺ Reset Match
+      </button>
     </div>
   );
 }

@@ -8,6 +8,10 @@ import Resources from "./pages/Resources.jsx";
 import Contact from "./pages/Contact.jsx";
 import Timer from "./components/Timer.jsx";
 import Scores from "./pages/Scores.jsx";
+import NotFound from "./pages/NotFound.jsx";
+import { restoreRoute } from "./utils/restoreRoute.js";
+
+restoreRoute(window.location, window.history);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -19,8 +23,9 @@ createRoot(document.getElementById("root")).render(
           <Route path="/contact" element={<Contact />} />
           <Route path="/timer" element={<Timer />} />
           <Route path="/scores" element={<Scores />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 );
