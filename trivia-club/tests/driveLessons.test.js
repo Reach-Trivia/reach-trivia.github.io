@@ -1,10 +1,7 @@
+import { fetchDriveLessons, lessonsFolderId } from "../api/_lib/drive.js";
 import assert from "node:assert/strict";
 import test from "node:test";
-import {
-  fetchDriveLessons,
-  mergeDriveLessons,
-  lessonsFolderId,
-} from "../src/utils/driveLessons.js";
+import { mergeDriveLessons } from "../src/utils/driveLessons.js";
 
 test("Drive listings follow every page and query only folder presentations", async () => {
   const requests = [];

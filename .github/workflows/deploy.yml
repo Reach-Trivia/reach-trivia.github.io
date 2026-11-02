@@ -30,8 +30,6 @@ jobs:
         working-directory: trivia-club
       - run: npm run build
         working-directory: trivia-club
-        env:
-          VITE_GOOGLE_DRIVE_API_KEY: ${{ secrets.GOOGLE_DRIVE_API_KEY }}
       - run: npm run check
         working-directory: trivia-club
       - uses: actions/upload-pages-artifact@v3

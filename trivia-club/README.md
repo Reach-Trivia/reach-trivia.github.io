@@ -45,25 +45,23 @@ and historical scores in `src/data/scoreHistory.js`.
 
 ### Automatic Drive lessons
 
-The Lessons page can read public Google Slides directly from the club's Lessons
-folder. It refreshes on opening the page, every five minutes while visible, and
-when returning to the tab. Existing slides keep their curated titles,
-descriptions, tags, and ordering; new slides use their Drive titles and descriptions.
-Only slides directly inside the folder are included. Removed slides disappear
-after a successful refresh. Failed requests preserve the last working list;
-without a configured key the original bundled lessons still work.
+Vercel's server endpoint `/api/lessons` lists public slides from the club folder.
+The browser receives only slide metadata. Set `GOOGLE_DRIVE_API_KEY` as a
+Production **Secret** in Vercel and redeploy. This variable must never use the
+`VITE_` prefix. The key stays on the server and is excluded from client builds.
 
-Enable Google Drive API in a Google Cloud project and create a browser API key.
-Restrict it to Google Drive API and HTTP referrers for
-`https://reachtrivia-ehss.vercel.app/*`. Local previews use the saved lesson list
-because the key is intentionally restricted to the production website.
-Vite embeds this public key in the browser bundle; restrictions limit its use.
-No Google account sign-in is required for site visitors.
+The key is restricted to Google Drive API and the Vercel website address.
+The server supplies that application's Referer on its outbound Drive request.
+The endpoint caches successful responses for five minutes and accepts no
+user-supplied folder, URL, or credential. Existing cards keep their curated
+metadata; new slides use their Drive titles and descriptions. Failed requests
+preserve the last working lesson list. GitHub Pages and plain Vite previews
+retain bundled lessons because they do not run Vercel functions.
 
-For local development, copy `.env.example` to `.env.local`, fill in the key,
-and restart Vite. For Vercel, set `VITE_GOOGLE_DRIVE_API_KEY` in the project
-environment and rebuild. GitHub Pages builds read the repository Actions
-secret `GOOGLE_DRIVE_API_KEY`. Never commit `.env.local`.
+The page refreshes on opening, every five minutes while visible, and when
+returning to the tab. Only slides directly inside the folder are included.
+For server development, use Vercel's local development environment with an
+ignored `.env.local` holding `GOOGLE_DRIVE_API_KEY`. Never commit that file.
 
 GitHub Actions validates and builds pushes to main, then deploys `dist/` to
 GitHub Pages. The custom `public/404.html` restores direct page URLs for React
