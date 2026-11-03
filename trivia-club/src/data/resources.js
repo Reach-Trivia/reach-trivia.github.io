@@ -177,5 +177,4 @@ export const externalLinks = [
     url: "https://www.geoguessr.com/",
     description: "A fun geography game to test your knowledge of the world.",
   },
-  
 ];

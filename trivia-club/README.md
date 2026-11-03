@@ -55,17 +55,17 @@ The server supplies that application's Referer on its outbound Drive request.
 The endpoint caches successful responses for five minutes and accepts no
 user-supplied folder, URL, or credential. Existing cards keep their curated
 metadata; new slides use their Drive titles and descriptions. Failed requests
-preserve the last working lesson list. GitHub Pages and plain Vite previews
-retain bundled lessons because they do not run Vercel functions.
+preserve the last working lesson list. Plain Vite previews retain bundled
+lessons because they do not run Vercel functions.
 
 The page refreshes on opening, every five minutes while visible, and when
 returning to the tab. Only slides directly inside the folder are included.
 For server development, use Vercel's local development environment with an
 ignored `.env.local` holding `GOOGLE_DRIVE_API_KEY`. Never commit that file.
 
-GitHub Actions validates and builds pushes to main, then deploys `dist/` to
-GitHub Pages. The custom `public/404.html` restores direct page URLs for React
-Router, including query strings and fragments. Unknown routes show a not-found
-page. Vercel uses the existing `vercel.json` rewrite.
+Vercel deploys the site from `main` and runs the server endpoint. GitHub Actions
+runs lint, formatting, tests, and a production build on pushes and pull requests;
+it does not publish a site. Vercel uses the `vercel.json` rewrite for React Router
+pages, including direct links. Unknown routes show a not-found page.
 
 The header logo and favicon are web-sized copies of the original club artwork.
