@@ -1,29 +1,43 @@
 import { useState } from "react";
 import { parseScore } from "../utils/scores.js";
+import { scoreShortcuts } from "../utils/matchShortcuts.js";
+import useMatchShortcuts from "../hooks/useMatchShortcuts.js";
 
 const initialTeams = [
   { name: "Team 1", score: "0", color: "blue" },
   { name: "Team 2", score: "0", color: "green" },
 ];
 
-function ScoreTicker({ team, index, onChange }) {
+function ScoreTicker({ team, index, onChange, shortcutsEnabled }) {
   const changeScore = (delta) =>
     onChange({ score: String(parseScore(team.score) + delta) });
 
   const scoreButtons = (deltas) => (
     <div className="score-btn-group">
-      {deltas.map((delta) => (
-        <button
-          key={delta}
-          type="button"
-          className="score-btn"
-          onClick={() => changeScore(delta)}
-          aria-label={`${delta > 0 ? "Add" : "Subtract"} ${Math.abs(delta)} points ${delta > 0 ? "to" : "from"} ${team.name}`}
-        >
-          {delta > 0 ? "+" : "−"}
-          {Math.abs(delta)}
-        </button>
-      ))}
+      {deltas.map((delta) => {
+        const shortcut = scoreShortcuts.find(
+          ({ teamIndex, points }) => teamIndex === index && points === delta,
+        );
+        return (
+          <button
+            key={delta}
+            type="button"
+            className="score-btn"
+            onClick={() => changeScore(delta)}
+            aria-label={`${delta > 0 ? "Add" : "Subtract"} ${Math.abs(delta)} points ${delta > 0 ? "to" : "from"} ${team.name}`}
+            aria-keyshortcuts={shortcutsEnabled ? shortcut?.key : undefined}
+            title={shortcut ? `Shortcut: ${shortcut.key}` : undefined}
+          >
+            {delta > 0 ? "+" : "−"}
+            {Math.abs(delta)}
+            {shortcut && (
+              <kbd className="shortcut-key" aria-hidden="true">
+                {shortcut.key}
+              </kbd>
+            )}
+          </button>
+        );
+      })}
     </div>
   );
 
@@ -66,8 +80,18 @@ function ScoreTicker({ team, index, onChange }) {
   );
 }
 
-export default function ScoreCounter() {
+export default function ScoreCounter({ shortcutsEnabled = true }) {
   const [teams, setTeams] = useState(initialTeams);
+
+  useMatchShortcuts(shortcutsEnabled, "score", ({ teamIndex, points }) => {
+    setTeams((current) =>
+      current.map((team, index) =>
+        index === teamIndex
+          ? { ...team, score: String(parseScore(team.score) + points) }
+          : team,
+      ),
+    );
+  });
 
   function updateTeam(index, changes) {
     setTeams((current) =>
@@ -83,6 +107,7 @@ export default function ScoreCounter() {
             key={team.color}
             team={team}
             index={index}
+            shortcutsEnabled={shortcutsEnabled}
             onChange={(changes) => updateTeam(index, changes)}
           />
         ))}

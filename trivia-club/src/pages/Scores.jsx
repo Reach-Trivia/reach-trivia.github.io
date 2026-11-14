@@ -7,6 +7,7 @@ import "../styles/scores.css";
 export default function Scores() {
   const [layout, setLayout] = useState("side");
   const [isMinimized, setIsMinimized] = useState(false);
+  const [shortcutsEnabled, setShortcutsEnabled] = useState(true);
 
   return (
     <main id="main-content" className="page-container scores-page">
@@ -26,9 +27,22 @@ export default function Scores() {
           />
         </div>
         <div className="scores-panel scores-counter">
-          <ScoreCounter />
-          <AnswerTimer />
+          <ScoreCounter shortcutsEnabled={shortcutsEnabled} />
+          <AnswerTimer shortcutsEnabled={shortcutsEnabled} />
         </div>
+      </div>
+      <div className="scores-shortcuts">
+        <label>
+          <input
+            type="checkbox"
+            checked={shortcutsEnabled}
+            onChange={(event) => setShortcutsEnabled(event.target.checked)}
+          />
+          Keyboard shortcuts
+        </label>
+        <p>
+          Click outside the buzzer to use them. Shortcuts pause while typing.
+        </p>
       </div>
     </main>
   );

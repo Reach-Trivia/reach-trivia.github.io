@@ -1,6 +1,8 @@
 import { useReducer, useState } from "react";
 import PanelHeader from "./PanelHeader.jsx";
 import useNow from "../hooks/useNow.js";
+import useMatchShortcuts from "../hooks/useMatchShortcuts.js";
+import { timerShortcuts } from "../utils/matchShortcuts.js";
 import { formatTime } from "../utils/time.js";
 import {
   answerTimerReducer,
@@ -14,7 +16,12 @@ const positions = [
   { value: "above", label: "Above scores" },
 ];
 
-export default function AnswerTimer() {
+const toggleKey = timerShortcuts.find(({ action }) => action === "toggle").key;
+const restartKey = timerShortcuts.find(
+  ({ action }) => action === "restart",
+).key;
+
+export default function AnswerTimer({ shortcutsEnabled = true }) {
   const [timer, dispatch] = useReducer(
     answerTimerReducer,
     5,
@@ -35,6 +42,18 @@ export default function AnswerTimer() {
       : timer.started
         ? "Paused"
         : "Ready";
+
+  function toggleTimer() {
+    const now = Date.now();
+    const isRunning =
+      timer.deadline !== null && remainingAnswerTime(timer, now) > 0;
+    dispatch({ type: isRunning ? "pause" : "start", now });
+  }
+
+  useMatchShortcuts(shortcutsEnabled, "timer", ({ action }) => {
+    if (action === "toggle") toggleTimer();
+    else dispatch({ type: "restart", now: Date.now() });
+  });
 
   function commitDuration() {
     const seconds = parseAnswerDuration(duration, timer.durationMs / 1000);
@@ -103,25 +122,30 @@ export default function AnswerTimer() {
               <button
                 type="button"
                 className="button"
-                onClick={() =>
-                  dispatch({
-                    type: running ? "pause" : "start",
-                    now: Date.now(),
-                  })
-                }
+                onClick={toggleTimer}
+                aria-keyshortcuts={shortcutsEnabled ? toggleKey : undefined}
+                title={`Shortcut: ${toggleKey.toUpperCase()}`}
               >
                 {running
                   ? "Pause"
                   : timer.started && !finished
                     ? "Resume"
                     : "Start"}
+                <kbd className="shortcut-key" aria-hidden="true">
+                  {toggleKey.toUpperCase()}
+                </kbd>
               </button>
               <button
                 type="button"
                 className="button"
                 onClick={() => dispatch({ type: "restart", now: Date.now() })}
+                aria-keyshortcuts={shortcutsEnabled ? restartKey : undefined}
+                title={`Shortcut: ${restartKey.toUpperCase()}`}
               >
                 Restart
+                <kbd className="shortcut-key" aria-hidden="true">
+                  {restartKey.toUpperCase()}
+                </kbd>
               </button>
             </div>
           </div>
