@@ -1,62 +1,54 @@
 import { useState } from "react";
+import PanelHeader from "./PanelHeader.jsx";
+import useWideScores from "../hooks/useWideScores.js";
 
 const buzzerUrl = "https://multibuzz.app";
 
 export default function BuzzerEmbed({
   layout,
-  onToggleLayout,
+  onChangeLayout,
   isMinimized,
   onToggleMinimize,
 }) {
   const [reloadKey, setReloadKey] = useState(0);
-  const layoutLabel =
-    layout === "side"
-      ? "Move buzzer under scores"
-      : "Move buzzer beside scores";
+  const isWide = useWideScores();
+  const positions = [
+    { value: "side", label: isWide ? "Beside scores" : "Above scores" },
+    { value: "under", label: "Below scores" },
+  ];
 
   return (
     <div className="offset-panel buzzer-frame">
       <div className="buzzer-window">
-        <div className="buzzer-header">
-          <span className="buzzer-title">🗔 multibuzz.app</span>
-          <div className="buzzer-controls">
-            <button
-              type="button"
-              onClick={onToggleLayout}
-              title={layoutLabel}
-              aria-label={layoutLabel}
-            >
-              {layout === "side" ? "⬍" : "⬌"}
-            </button>
-            <button
-              type="button"
-              onClick={onToggleMinimize}
-              title={isMinimized ? "Expand buzzer" : "Minimize buzzer"}
-              aria-label={isMinimized ? "Expand buzzer" : "Minimize buzzer"}
-              aria-expanded={!isMinimized}
-              aria-controls="buzzer-body"
-            >
-              {isMinimized ? "□" : "−"}
-            </button>
-            <button
-              type="button"
-              onClick={() => setReloadKey((key) => key + 1)}
-              title="Reload buzzer"
-              aria-label="Reload buzzer"
-            >
-              ↻
-            </button>
-            <a
-              href={buzzerUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Open buzzer in new tab"
-              aria-label="Open buzzer in new tab"
-            >
-              ↗
-            </a>
-          </div>
-        </div>
+        <PanelHeader
+          id="buzzer-body"
+          title="multibuzz.app"
+          position={layout}
+          positions={positions}
+          onPositionChange={onChangeLayout}
+          isMinimized={isMinimized}
+          onToggleMinimize={onToggleMinimize}
+        >
+          <button
+            type="button"
+            className="panel-icon-button"
+            onClick={() => setReloadKey((key) => key + 1)}
+            title="Reload buzzer"
+            aria-label="Reload buzzer"
+          >
+            ↻
+          </button>
+          <a
+            className="panel-icon-button"
+            href={buzzerUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Open buzzer in new tab"
+            aria-label="Open buzzer in new tab"
+          >
+            ↗
+          </a>
+        </PanelHeader>
         <div id="buzzer-body" hidden={isMinimized}>
           <iframe
             key={reloadKey}

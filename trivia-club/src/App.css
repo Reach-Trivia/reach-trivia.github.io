@@ -62,7 +62,7 @@
 
 .button,
 .score-btn,
-.buzzer-controls > * {
+.panel-controls > :is(button, a) {
   padding: 0.65rem 1rem;
   border: 2px solid var(--border);
   border-radius: var(--radius-small);
@@ -76,7 +76,7 @@
 
 .button:hover:enabled,
 .score-btn:hover,
-.buzzer-controls > *:hover {
+.panel-controls > :is(button, a):hover {
   background: var(--yellow);
   transform: translate(-1px, -1px);
   box-shadow: 3px 3px 0 var(--border);
@@ -84,7 +84,7 @@
 
 .button:active:enabled,
 .score-btn:active,
-.buzzer-controls > *:active {
+.panel-controls > :is(button, a):active {
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 var(--border);
 }

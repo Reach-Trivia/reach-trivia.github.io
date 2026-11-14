@@ -37,6 +37,13 @@ The score layout uses CSS to move mounted panels, preserving scores and the
 MultiBuzz iframe. Reset Match clears scores and keeps team names. The external
 buzzer requires access to multibuzz.app; it also has an open-in-new-tab control.
 
+The Scores page has a five-second answer timer with an editable duration
+(1–300 seconds), pause/resume, and a Restart button that immediately starts
+another full countdown. It keeps counting while minimized. Both panels have
+labeled position choices; the buzzer switches from beside/below to above/below
+on smaller screens. Multibuzz does not expose buzz events to the embedded page,
+so the answer timer starts manually.
+
 The daily question changes at each visitor's local midnight. The competition
 countdown uses the event's Toronto offset. Edit the event in `src/pages/Home.jsx`
 and historical scores in `src/data/scoreHistory.js`.

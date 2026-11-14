@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ScoreCounter from "../components/ScoreCounter.jsx";
 import BuzzerEmbed from "../components/BuzzerEmbed.jsx";
+import AnswerTimer from "../components/AnswerTimer.jsx";
 import "../styles/scores.css";
 
 export default function Scores() {
@@ -19,15 +20,14 @@ export default function Scores() {
         <div className="scores-panel scores-buzzer">
           <BuzzerEmbed
             layout={layout}
-            onToggleLayout={() =>
-              setLayout((current) => (current === "side" ? "under" : "side"))
-            }
+            onChangeLayout={setLayout}
             isMinimized={isMinimized}
             onToggleMinimize={() => setIsMinimized((current) => !current)}
           />
         </div>
         <div className="scores-panel scores-counter">
           <ScoreCounter />
+          <AnswerTimer />
         </div>
       </div>
     </main>
