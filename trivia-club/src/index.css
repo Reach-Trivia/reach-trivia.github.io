@@ -19,14 +19,13 @@
   --radius-small: 12px;
   --outline: 3px solid var(--border);
   --shadow: 4px 4px 0 var(--border);
-  --mono: ui-monospace, Consolas, "Courier New", monospace;
-  font:
-    18px/1.5 "Segoe UI",
-    system-ui,
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
+  --sans:
+    "Segoe UI", "Aptos", "Noto Sans", system-ui, -apple-system,
+    BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --mono:
+    ui-monospace, Consolas, "SFMono-Regular", Menlo, Monaco, "Liberation Mono",
+    "Courier New", monospace;
+  font: 18px/1.5 var(--sans);
   color: var(--text);
   letter-spacing: 0.18px;
   background: var(--bg);
@@ -67,8 +66,11 @@ h3 {
   line-height: 1.2;
 }
 button,
-input {
+input,
+select,
+textarea {
   font: inherit;
+  letter-spacing: inherit;
 }
 button,
 a,

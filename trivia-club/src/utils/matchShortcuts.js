@@ -1,13 +1,17 @@
 export const timerShortcuts = [
-  { key: "t", scope: "timer", action: "toggle" },
-  { key: "r", scope: "timer", action: "restart" },
+  { key: "n", scope: "timer", action: "toggle" },
+  { key: "m", scope: "timer", action: "restart" },
 ];
 
 export const scoreShortcuts = [
-  { key: "1", scope: "score", teamIndex: 0, points: 5 },
-  { key: "2", scope: "score", teamIndex: 0, points: 10 },
-  { key: "9", scope: "score", teamIndex: 1, points: 5 },
-  { key: "0", scope: "score", teamIndex: 1, points: 10 },
+  { key: "u", scope: "score", teamIndex: 0, points: 10 },
+  { key: "i", scope: "score", teamIndex: 0, points: 5 },
+  { key: "h", scope: "score", teamIndex: 0, points: -10 },
+  { key: "j", scope: "score", teamIndex: 0, points: -5 },
+  { key: "o", scope: "score", teamIndex: 1, points: 10 },
+  { key: "p", scope: "score", teamIndex: 1, points: 5 },
+  { key: "k", scope: "score", teamIndex: 1, points: -10 },
+  { key: "l", scope: "score", teamIndex: 1, points: -5 },
 ];
 
 const shortcuts = [...timerShortcuts, ...scoreShortcuts];

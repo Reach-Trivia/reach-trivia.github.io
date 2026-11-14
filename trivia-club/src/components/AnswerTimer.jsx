@@ -93,14 +93,15 @@ export default function AnswerTimer({ shortcutsEnabled = true }) {
             <label className="answer-duration">
               Seconds
               <input
-                type="number"
-                min="1"
-                max="300"
-                step="1"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={3}
                 value={duration}
                 disabled={running}
                 onChange={(event) => {
                   const value = event.target.value;
+                  if (!/^\d{0,3}$/.test(value)) return;
                   setDuration(value);
                   if (
                     value !== "" &&
@@ -124,28 +125,20 @@ export default function AnswerTimer({ shortcutsEnabled = true }) {
                 className="button"
                 onClick={toggleTimer}
                 aria-keyshortcuts={shortcutsEnabled ? toggleKey : undefined}
-                title={`Shortcut: ${toggleKey.toUpperCase()}`}
               >
                 {running
                   ? "Pause"
                   : timer.started && !finished
                     ? "Resume"
                     : "Start"}
-                <kbd className="shortcut-key" aria-hidden="true">
-                  {toggleKey.toUpperCase()}
-                </kbd>
               </button>
               <button
                 type="button"
                 className="button"
                 onClick={() => dispatch({ type: "restart", now: Date.now() })}
                 aria-keyshortcuts={shortcutsEnabled ? restartKey : undefined}
-                title={`Shortcut: ${restartKey.toUpperCase()}`}
               >
                 Restart
-                <kbd className="shortcut-key" aria-hidden="true">
-                  {restartKey.toUpperCase()}
-                </kbd>
               </button>
             </div>
           </div>

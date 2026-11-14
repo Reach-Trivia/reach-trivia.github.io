@@ -3,13 +3,17 @@ import test from "node:test";
 import { getMatchShortcut } from "../src/utils/matchShortcuts.js";
 
 test("match shortcuts address the intended timer action and team", () => {
-  assert.equal(getMatchShortcut({ key: "t" }).action, "toggle");
-  assert.equal(getMatchShortcut({ key: "R" }).action, "restart");
+  assert.equal(getMatchShortcut({ key: "n" }).action, "toggle");
+  assert.equal(getMatchShortcut({ key: "M" }).action, "restart");
   for (const [key, teamIndex, points] of [
-    ["1", 0, 5],
-    ["2", 0, 10],
-    ["9", 1, 5],
-    ["0", 1, 10],
+    ["u", 0, 10],
+    ["i", 0, 5],
+    ["h", 0, -10],
+    ["j", 0, -5],
+    ["o", 1, 10],
+    ["p", 1, 5],
+    ["k", 1, -10],
+    ["l", 1, -5],
   ]) {
     const shortcut = getMatchShortcut({ key });
     assert.equal(shortcut.scope, "score");
@@ -18,6 +22,9 @@ test("match shortcuts address the intended timer action and team", () => {
   }
   assert.equal(getMatchShortcut({ key: " " }), null);
   assert.equal(getMatchShortcut({ key: "Escape" }), null);
+  for (const key of ["t", "r", "1", "2", "9", "0"]) {
+    assert.equal(getMatchShortcut({ key }), null);
+  }
 });
 
 test("typing, held keys, composition, and browser shortcuts cannot trigger match actions", () => {
@@ -30,14 +37,14 @@ test("typing, held keys, composition, and browser shortcuts cannot trigger match
     "altKey",
     "shiftKey",
   ]) {
-    assert.equal(getMatchShortcut({ key: "r", [flag]: true }), null);
-    assert.equal(getMatchShortcut({ key: "1", [flag]: true }), null);
+    assert.equal(getMatchShortcut({ key: "m", [flag]: true }), null);
+    assert.equal(getMatchShortcut({ key: "u", [flag]: true }), null);
   }
   assert.equal(
-    getMatchShortcut({ key: "1", target: { isContentEditable: true } }),
+    getMatchShortcut({ key: "u", target: { isContentEditable: true } }),
     null,
   );
   const field = { closest: () => ({ tagName: "INPUT" }) };
-  assert.equal(getMatchShortcut({ key: "1", target: field }), null);
-  assert.equal(getMatchShortcut({ key: "t", target: field }), null);
+  assert.equal(getMatchShortcut({ key: "u", target: field }), null);
+  assert.equal(getMatchShortcut({ key: "n", target: field }), null);
 });

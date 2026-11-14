@@ -2,6 +2,7 @@ import { useState } from "react";
 import ScoreCounter from "../components/ScoreCounter.jsx";
 import BuzzerEmbed from "../components/BuzzerEmbed.jsx";
 import AnswerTimer from "../components/AnswerTimer.jsx";
+import { scoreShortcuts, timerShortcuts } from "../utils/matchShortcuts.js";
 import "../styles/scores.css";
 
 export default function Scores() {
@@ -31,19 +32,50 @@ export default function Scores() {
           <AnswerTimer shortcutsEnabled={shortcutsEnabled} />
         </div>
       </div>
-      <div className="scores-shortcuts">
-        <label>
-          <input
-            type="checkbox"
-            checked={shortcutsEnabled}
-            onChange={(event) => setShortcutsEnabled(event.target.checked)}
-          />
-          Keyboard shortcuts
-        </label>
+      <footer className="scores-shortcuts" aria-label="Keyboard shortcuts">
+        <div className="shortcuts-heading">
+          <h2>Keyboard shortcuts</h2>
+          <label>
+            <input
+              type="checkbox"
+              checked={shortcutsEnabled}
+              onChange={(event) => setShortcutsEnabled(event.target.checked)}
+            />
+            Enable shortcuts
+          </label>
+        </div>
+        <div className="shortcut-guide">
+          {[0, 1].map((teamIndex) => (
+            <div key={teamIndex}>
+              <h3>Team {teamIndex + 1}</h3>
+              <p className="shortcut-list">
+                {scoreShortcuts
+                  .filter((shortcut) => shortcut.teamIndex === teamIndex)
+                  .map(({ key, points }) => (
+                    <span key={key}>
+                      <kbd>{key.toUpperCase()}</kbd> {points > 0 ? "+" : "−"}
+                      {Math.abs(points)}
+                    </span>
+                  ))}
+              </p>
+            </div>
+          ))}
+          <div>
+            <h3>Timer</h3>
+            <p className="shortcut-list">
+              {timerShortcuts.map(({ key, action }) => (
+                <span key={key}>
+                  <kbd>{key.toUpperCase()}</kbd>{" "}
+                  {action === "toggle" ? "Start / pause" : "Restart"}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
         <p>
           Click outside the buzzer to use them. Shortcuts pause while typing.
         </p>
-      </div>
+      </footer>
     </main>
   );
 }

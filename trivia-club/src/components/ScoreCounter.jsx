@@ -26,15 +26,9 @@ function ScoreTicker({ team, index, onChange, shortcutsEnabled }) {
             onClick={() => changeScore(delta)}
             aria-label={`${delta > 0 ? "Add" : "Subtract"} ${Math.abs(delta)} points ${delta > 0 ? "to" : "from"} ${team.name}`}
             aria-keyshortcuts={shortcutsEnabled ? shortcut?.key : undefined}
-            title={shortcut ? `Shortcut: ${shortcut.key}` : undefined}
           >
             {delta > 0 ? "+" : "−"}
             {Math.abs(delta)}
-            {shortcut && (
-              <kbd className="shortcut-key" aria-hidden="true">
-                {shortcut.key}
-              </kbd>
-            )}
           </button>
         );
       })}

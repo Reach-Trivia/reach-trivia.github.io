@@ -44,12 +44,13 @@ labeled position choices; the buzzer switches from beside/below to above/below
 on smaller screens. Multibuzz does not expose buzz events to the embedded page,
 so the answer timer starts manually.
 
-Keyboard shortcuts on the Scores page: **T** starts/pauses/resumes the answer
-timer; **R** restarts it. **1 / 2** add **5 / 10** to Team 1, and **9 / 0** add
-**5 / 10** to Team 2. The timer shortcuts also work while minimized. Shortcuts
+Keyboard shortcuts on the Scores page: **N** starts/pauses/resumes the answer
+timer; **M** restarts it. Team 1 uses **U / I / H / J** for **+10 / +5 / −10 / −5**;
+Team 2 uses **O / P / K / L** for the same adjustments. The guide is at the bottom
+of the page, below the match controls. The timer shortcuts also work while minimized. Shortcuts
 ignore typing, held keys, and modifier combinations. Click outside the embedded
 buzzer first; keyboard events inside it belong to Multibuzz. Uncheck
-**Keyboard shortcuts** below the panels to turn them off.
+**Enable shortcuts** in the guide to turn them off.
 
 The daily question changes at each visitor's local midnight. The competition
 countdown uses the event's Toronto offset. Edit the event in `src/pages/Home.jsx`
