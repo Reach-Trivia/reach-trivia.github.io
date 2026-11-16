@@ -35,7 +35,7 @@ test("Drive failures reject so the page can keep its last working lessons", asyn
   );
 });
 
-test("sync preserves curated cards and adds new slides without duplicates", () => {
+test("sync uses Drive titles, preserves subject metadata, and removes missing slides", () => {
   const existing = [
     {
       id: 1,
@@ -54,7 +54,8 @@ test("sync preserves curated cards and adds new slides without duplicates", () =
     existing,
   );
   assert.equal(merged.length, 2);
-  assert.equal(merged[0].title, "Custom title");
+  assert.equal(merged[0].title, "Drive title");
+  assert.equal(merged[0].description, "Custom description");
   assert.deepEqual(merged[0].tags, ["science"]);
   assert.equal(merged[1].title, "New slides");
   assert.deepEqual(mergeDriveLessons([], existing), []);

@@ -68,8 +68,9 @@ Production **Secret** in Vercel and redeploy. This variable must never use the
 The key is restricted to Google Drive API and the Vercel website address.
 The server supplies that application's Referer on its outbound Drive request.
 The endpoint caches successful responses for five minutes and accepts no
-user-supplied folder, URL, or credential. Existing cards keep their curated
-metadata; new slides use their Drive titles and descriptions. Failed requests
+user-supplied folder, URL, or credential. All cards use their current Drive titles.
+Existing cards keep their saved first-slide descriptions and subject tags;
+new slides use their Drive descriptions. Failed requests
 preserve the last working lesson list. Plain Vite previews retain bundled
 lessons because they do not run Vercel functions.
 

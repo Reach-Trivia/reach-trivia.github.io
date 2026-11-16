@@ -18,7 +18,7 @@ export function mergeDriveLessons(files, existing) {
       const saved = metadata.get(file.id)?.lesson;
       return {
         id: file.id,
-        title: saved?.title || file.name,
+        title: file.name,
         description:
           saved?.description ||
           file.description ||
