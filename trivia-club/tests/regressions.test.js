@@ -97,6 +97,48 @@ test("a single match is centered and produces finite chart coordinates", () => {
   }
 });
 
+test("matches are evenly spaced regardless of the time between dates", () => {
+  const dates = ["2026-10-09", "2026-11-09", "2026-11-13", "2026-11-16"];
+  const model = createScoreChart(
+    dates.map((date) => ({ date, teamOne: 240, teamTwo: 175 })),
+  );
+  assert.deepEqual(
+    model.history.map(({ date }) => date),
+    dates,
+  );
+  const spacing = model.history[1].x - model.history[0].x;
+  for (let index = 1; index < model.history.length; index++) {
+    assert.ok(
+      Math.abs(model.history[index].x - model.history[index - 1].x - spacing) <
+        1e-9,
+    );
+  }
+  for (const team of model.plotSeries) {
+    assert.deepEqual(
+      team.points.map(({ x }) => x),
+      model.history.map(({ x }) => x),
+    );
+  }
+});
+
+test("month markers appear once per month and include the year", () => {
+  const model = createScoreChart(
+    ["2027-01-04", "2026-11-09", "2026-11-16", "2026-10-09"].map((date) => ({
+      date,
+      teamOne: 240,
+      teamTwo: 175,
+    })),
+  );
+  assert.deepEqual(
+    model.monthTicks.map(({ label }) => label),
+    ["Oct 2026", "Nov 2026", "Jan 2027"],
+  );
+  assert.deepEqual(
+    model.monthTicks.map(({ x }) => x),
+    [model.history[0].x, model.history[1].x, model.history[3].x],
+  );
+});
+
 test("chart sorts unsorted matches without mutating them and supports tied negative scores", () => {
   const entries = [
     { date: "2026-10-17", teamOne: -10, teamTwo: -10 },

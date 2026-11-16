@@ -4,7 +4,7 @@ export const chart = {
   left: 58,
   right: 20,
   top: 20,
-  bottom: 66,
+  bottom: 46,
 };
 export const series = [
   { key: "teamOne", label: "Blue", className: "score-chart-blue" },
@@ -18,6 +18,12 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 });
 export const formatDate = (date) =>
   dateFormatter.format(new Date(`${date}T00:00:00Z`));
+
+const monthFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 function niceTickStep(range) {
   const rough = range / 4;
@@ -46,13 +52,10 @@ export function createScoreChart(entries) {
 
   const plotWidth = chart.width - chart.left - chart.right;
   const plotHeight = chart.height - chart.top - chart.bottom;
-  const firstDate = history[0].timestamp;
-  const lastDate = history.at(-1).timestamp;
-  const padding = (lastDate - firstDate || 86400000) * 0.05;
-  const xForDate = (date) =>
-    chart.left +
-    ((date - firstDate + padding) / (lastDate - firstDate + 2 * padding)) *
-      plotWidth;
+  const lastIndex = history.length - 1;
+  const padding = (lastIndex || 1) * 0.05;
+  const xForMatch = (index) =>
+    chart.left + ((index + padding) / (lastIndex + 2 * padding)) * plotWidth;
   const scores = history.flatMap((entry) =>
     series.map(({ key }) => entry[key]),
   );
@@ -66,11 +69,23 @@ export function createScoreChart(entries) {
     chart.top + ((yMax - score) / (yMax - yMin)) * plotHeight;
 
   return {
-    history: history.map((entry) => ({
+    history: history.map((entry, index) => ({
       ...entry,
-      x: xForDate(entry.timestamp),
+      x: xForMatch(index),
     })),
     plotHeight,
+    monthTicks: history.flatMap((entry, index) =>
+      index === 0 ||
+      entry.date.slice(0, 7) !== history[index - 1].date.slice(0, 7)
+        ? [
+            {
+              key: entry.date.slice(0, 7),
+              label: monthFormatter.format(new Date(entry.timestamp)),
+              x: xForMatch(index),
+            },
+          ]
+        : [],
+    ),
     yTicks: Array.from(
       { length: Math.round((yMax - yMin) / step) + 1 },
       (_, i) => {
@@ -80,8 +95,8 @@ export function createScoreChart(entries) {
     ),
     plotSeries: series.map((team) => ({
       ...team,
-      points: history.map((entry) => ({
-        x: xForDate(entry.timestamp),
+      points: history.map((entry, index) => ({
+        x: xForMatch(index),
         y: yForScore(entry[team.key]),
         score: entry[team.key],
       })),

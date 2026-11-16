@@ -95,6 +95,25 @@ export default function ScoreHistoryGraph({ history = scoreHistory }) {
                   </text>
                 </g>
               ))}
+              {model.monthTicks.map((month) => (
+                <g key={month.key}>
+                  <line
+                    className="score-chart-gridline"
+                    x1={month.x}
+                    x2={month.x}
+                    y1={chart.top}
+                    y2={chart.height - chart.bottom}
+                  />
+                  <text
+                    className="score-chart-tick"
+                    x={month.x}
+                    y={chart.height - chart.bottom + 22}
+                    textAnchor="middle"
+                  >
+                    {month.label}
+                  </text>
+                </g>
+              ))}
               {model.history.map((entry, index, entries) => {
                 const previousX =
                   index === 0
@@ -197,29 +216,6 @@ export default function ScoreHistoryGraph({ history = scoreHistory }) {
                   </g>
                 </>
               )}
-              {model.history.map(
-                (entry, index, entries) =>
-                  (index % Math.max(1, Math.ceil(entries.length / 6)) === 0 ||
-                    index === entries.length - 1) && (
-                    <text
-                      className="score-chart-tick"
-                      key={`${entry.date}-${index}`}
-                      x={entry.x}
-                      y={chart.height - chart.bottom + 22}
-                      textAnchor="middle"
-                    >
-                      {formatDate(entry.date)}
-                    </text>
-                  ),
-              )}
-              <text
-                className="score-chart-axis-label"
-                x={(chart.left + chart.width - chart.right) / 2}
-                y={chart.height - 8}
-                textAnchor="middle"
-              >
-                Date
-              </text>
               <text
                 className="score-chart-axis-label"
                 transform={`translate(16 ${(chart.top + chart.height - chart.bottom) / 2}) rotate(-90)`}
