@@ -9,7 +9,7 @@ export async function fetchDriveLessons(
   do {
     const params = new URLSearchParams({
       q: `'${lessonsFolderId}' in parents and trashed = false and mimeType = 'application/vnd.google-apps.presentation'`,
-      fields: "nextPageToken,files(id,name,description)",
+      fields: "nextPageToken,files(id,name)",
       pageSize: "1000",
       orderBy: "name_natural",
     });

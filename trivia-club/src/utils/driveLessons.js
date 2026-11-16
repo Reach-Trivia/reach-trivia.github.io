@@ -19,10 +19,6 @@ export function mergeDriveLessons(files, existing) {
       return {
         id: file.id,
         title: file.name,
-        description:
-          saved?.description ||
-          file.description ||
-          "Open the slides to explore this lesson.",
         tags: saved?.tags || [],
         slideUrl: `https://docs.google.com/presentation/d/${encodeURIComponent(file.id)}/edit`,
       };

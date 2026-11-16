@@ -7,10 +7,8 @@ export default function Resources() {
   const [search, setSearch] = useState("");
   const { lessons, refreshFailed } = useDriveLessons();
   const query = search.trim().toLowerCase();
-  const filtered = lessons.filter(({ title, description, tags }) =>
-    [title, description, ...tags].some((text) =>
-      text.toLowerCase().includes(query),
-    ),
+  const filtered = lessons.filter(({ title, tags }) =>
+    [title, ...tags].some((text) => text.toLowerCase().includes(query)),
   );
 
   return (
@@ -45,7 +43,6 @@ export default function Resources() {
               {filtered.map((resource) => (
                 <article key={resource.id} className="card resource-card">
                   <h2 className="card-title">{resource.title}</h2>
-                  <p className="muted">{resource.description}</p>
                   <div className="resource-tags">
                     {resource.tags.map((tag) => (
                       <span key={tag} className="resource-tag">

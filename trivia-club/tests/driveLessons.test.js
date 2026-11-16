@@ -40,7 +40,6 @@ test("sync uses Drive titles, preserves subject metadata, and removes missing sl
     {
       id: 1,
       title: "Custom title",
-      description: "Custom description",
       tags: ["science"],
       slideUrl: "https://docs.google.com/presentation/d/known/edit",
     },
@@ -55,7 +54,6 @@ test("sync uses Drive titles, preserves subject metadata, and removes missing sl
   );
   assert.equal(merged.length, 2);
   assert.equal(merged[0].title, "Drive title");
-  assert.equal(merged[0].description, "Custom description");
   assert.deepEqual(merged[0].tags, ["science"]);
   assert.equal(merged[1].title, "New slides");
   assert.deepEqual(mergeDriveLessons([], existing), []);
