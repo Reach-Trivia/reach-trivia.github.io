@@ -58,30 +58,22 @@ and historical scores in `src/data/scoreHistory.js`.
 
 ## Deployment
 
-### Automatic Drive lessons
+### Lessons and question sets
 
-Vercel's server endpoint `/api/lessons` lists public slides from the club folder.
-The browser receives only slide metadata. Set `GOOGLE_DRIVE_API_KEY` as a
-Production **Secret** in Vercel and redeploy. This variable must never use the
-`VITE_` prefix. The key stays on the server and is excluded from client builds.
+The Resources page reads its lesson links from `src/data/resources.js` and searches
+their titles and tags. Edit that file to add, rename, or remove a lesson. Nested
+question-set folder links are maintained in `src/data/questionSets.js`.
+The site does not sync with Drive or require a Drive API key.
 
-The key is restricted to Google Drive API and the Vercel website address.
-The server supplies that application's Referer on its outbound Drive request.
-The endpoint caches successful responses for five minutes and accepts no
-user-supplied folder, URL, or credential. All cards use their current Drive titles.
-Existing cards keep their subject tags. Lesson cards show titles, tags, and slide
-links. Failed requests
-preserve the last working lesson list. Plain Vite previews retain bundled
-lessons because they do not run Vercel functions.
-
-The page refreshes on opening, every five minutes while visible, and when
-returning to the tab. Only slides directly inside the folder are included.
-For server development, use Vercel's local development environment with an
-ignored `.env.local` holding `GOOGLE_DRIVE_API_KEY`. Never commit that file.
-
-Vercel deploys the site from `main` and runs the server endpoint. GitHub Actions
+Vercel deploys the site from `main`. GitHub Actions
 runs lint, formatting, tests, and a production build on pushes and pull requests;
 it does not publish a site. Vercel uses the `vercel.json` rewrite for React Router
 pages, including direct links. Unknown routes show a not-found page.
 
 The header logo and favicon are web-sized copies of the original club artwork.
+
+## Licence
+
+The website source code is licensed under the GNU General Public License,
+version 3 only. See [LICENSE](../LICENSE). Linked slides, question sets, and
+third-party materials retain their respective licences.

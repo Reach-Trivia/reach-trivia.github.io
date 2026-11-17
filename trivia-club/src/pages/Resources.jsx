@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { externalLinks } from "../data/resources.js";
+import { externalLinks, resources } from "../data/resources.js";
 import { questionSetCollections } from "../data/questionSets.js";
-import useDriveLessons from "../hooks/useDriveLessons.js";
 import "../styles/resources.css";
 
 function QuestionSetLinks({ sections, parent }) {
@@ -31,9 +30,8 @@ function QuestionSetLinks({ sections, parent }) {
 
 export default function Resources() {
   const [search, setSearch] = useState("");
-  const { lessons, refreshFailed } = useDriveLessons();
   const query = search.trim().toLowerCase();
-  const filtered = lessons.filter(({ title, tags }) =>
+  const filtered = resources.filter(({ title, tags }) =>
     [title, ...tags].some((text) => text.toLowerCase().includes(query)),
   );
 
@@ -58,11 +56,6 @@ export default function Resources() {
             className="search-input"
           />
         </div>
-        {refreshFailed && (
-          <p className="muted" role="status">
-            Showing saved lessons. Updates are temporarily unavailable.
-          </p>
-        )}
         <div className="study-guides-scroll-area">
           {filtered.length ? (
             <div className="study-guides-grid">

@@ -22,11 +22,12 @@ match scores, and a place to find the club.
 | Past match scores                                   | [scoreHistory.js](trivia-club/src/data/scoreHistory.js) |
 | Competition name and countdown date                 | [Home.jsx](trivia-club/src/pages/Home.jsx)              |
 | Daily trivia questions                              | [questions.js](trivia-club/src/data/questions.js)       |
-| Lesson descriptions and tags                        | [resources.js](trivia-club/src/data/resources.js)       |
+| Lesson titles, links, and tags                      | [resources.js](trivia-club/src/data/resources.js)       |
+| Question-set folder links                           | [questionSets.js](trivia-club/src/data/questionSets.js) |
 
-New slides sync from the club's [Lessons folder](https://drive.google.com/drive/folders/17rkACr05l6Vu4b7GX7YFcyWZnnL3ATLQ).
-Add the deck directly to that folder and make sure it's publicly viewable.
-It should appear on the site within a few minutes.
+Lesson links are maintained in the site data. To add a lesson, update
+`trivia-club/src/data/resources.js` with its title, slide link, and subject tags.
+Lesson search uses the titles and tags.
 
 Pushing changes to `main` triggers a Vercel deployment.
 
@@ -45,7 +46,12 @@ Run `npm run check` and `npm run build` before pushing code changes.
 ## Passing it on
 
 Before the next media master takes over, make sure they have access to the
-GitHub repo, Vercel team, Drive folder, and the Google Cloud project used for
-slide syncing. The Drive key stays in Vercel's production Secrets.
+GitHub repo, Vercel team, and the linked Drive folders.
 
 [Developer notes and deployment setup](trivia-club/README.md)
+
+## Licence
+
+The website source code is licensed under the GNU General Public License,
+version 3 only. See [LICENSE](LICENSE). Linked slides, question sets, and
+third-party materials retain their respective licences.
